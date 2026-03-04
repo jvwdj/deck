@@ -496,10 +496,19 @@ function ROISection() {
   const [orgNaam, setOrgNaam] = useState(initOrg)
   const [copied, setCopied] = useState(false)
 
-  const copyLink = () => {
+  const copyLink = async () => {
     const slug = encodeURIComponent(orgNaam.trim())
     const url = `${window.location.origin}/${slug}?deal=${dealwaarde}&marge=${marge}`
-    navigator.clipboard.writeText(url)
+    try {
+      await navigator.clipboard.writeText(url)
+    } catch {
+      const el = document.createElement('textarea')
+      el.value = url
+      document.body.appendChild(el)
+      el.select()
+      document.execCommand('copy')
+      document.body.removeChild(el)
+    }
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
