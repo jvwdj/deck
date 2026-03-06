@@ -13,7 +13,7 @@ const PHASES = [
     color: BLUE,
     rgb: '57,106,252',
     bullets: [
-      'Wij bouwen het volledige cold email systeem',
+      'Wij bouwen het volledige outbound email systeem',
       'Jij levert input over doelgroep en aanbod',
       'Laatste check samen — dan gaan we live',
     ],
@@ -27,6 +27,8 @@ const PHASES = [
     bullets: [
       'Wij draaien alle campagnes',
       'Eerste leads komen binnen',
+      'Meetings worden in je agenda gezet',
+      'Wekelijkse iteraties',
       'Wekelijkse kenniscalls — van A tot Z',
     ],
   },
@@ -514,8 +516,7 @@ function ROISection() {
   }
 
   const profit = calcDealwaarde * (calcMarge / 100)
-  const be7500 = profit > 0 ? Math.ceil(7500 / profit) : null
-  const be9000 = profit > 0 ? Math.ceil(9000 / profit) : null
+  const be8000 = profit > 0 ? Math.ceil(8000 / profit) : null
 
   const inputStyle = {
     width: '100%', background: 'rgba(255,255,255,0.07)',
@@ -613,33 +614,27 @@ function ROISection() {
           </div>
 
           {/* Results */}
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 24, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-            {[
-              { price: '€7.500', sub: 'zonder appointment setting', be: be7500, rgb: '57,106,252' },
-              { price: '€9.000', sub: 'incl. appointment setting', be: be9000, rgb: '139,92,246' },
-            ].map((opt) => (
-              <div key={opt.price} style={{
-                background: `rgba(${opt.rgb}, 0.07)`,
-                border: `1px solid rgba(${opt.rgb}, 0.2)`,
-                borderRadius: 14, padding: '20px 22px',
-              }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.5)', marginBottom: 14 }}>
-                  {opt.price}{' '}
-                  <span style={{ fontWeight: 400, opacity: 0.7 }}>— {opt.sub}</span>
-                </div>
-                <div key={`${opt.price}-${opt.be}`} className="scale-in" style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-                  <span style={{ fontSize: 44, fontWeight: 800, color: 'white', letterSpacing: -2, lineHeight: 1 }}>
-                    {opt.be ?? '?'}
-                  </span>
-                  <span style={{ fontSize: 16, color: 'rgba(255,255,255,0.45)', fontWeight: 600 }}>
-                    {opt.be !== null ? (opt.be === 1 ? 'klant' : 'klanten') : ''}
-                  </span>
-                </div>
-                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', marginTop: 8 }}>
-                  om de investering terug te verdienen
-                </div>
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 24 }}>
+            <div style={{
+              background: 'rgba(57,106,252, 0.07)',
+              border: '1px solid rgba(57,106,252, 0.2)',
+              borderRadius: 14, padding: '20px 22px',
+            }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.5)', marginBottom: 14 }}>
+                €8.000
               </div>
-            ))}
+              <div key={be8000} className="scale-in" style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                <span style={{ fontSize: 44, fontWeight: 800, color: 'white', letterSpacing: -2, lineHeight: 1 }}>
+                  {be8000 ?? '?'}
+                </span>
+                <span style={{ fontSize: 16, color: 'rgba(255,255,255,0.45)', fontWeight: 600 }}>
+                  {be8000 !== null ? (be8000 === 1 ? 'klant' : 'klanten') : ''}
+                </span>
+              </div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', marginTop: 8 }}>
+                om de investering terug te verdienen
+              </div>
+            </div>
           </div>
 
           {profit > 0 && (
