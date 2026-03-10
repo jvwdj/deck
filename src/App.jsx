@@ -13,7 +13,7 @@ const PHASES = [
     color: BLUE,
     rgb: '57,106,252',
     bullets: [
-      'Wij bouwen het volledige outbound email systeem',
+      'Wij bouwen het volledige outbound systeem',
       'Jij levert input over doelgroep en aanbod',
       'Laatste check samen — dan gaan we live',
     ],
@@ -40,7 +40,7 @@ const PHASES = [
     rgb: '14,165,233',
     bullets: [
       'Eerste resultaten zijn er',
-      'Exacte overdracht — campagnes blijven live gevuld',
+      'Exacte overdracht — campagnes blijven live en gevuld',
       'Daarna zelfstandig runnen',
     ],
   },
@@ -69,7 +69,7 @@ const PILLARS = [
     sub: 'Je bericht moet gezien worden',
     color: CYAN,
     rgb: '14,165,233',
-    bullets: ['Niet bouncen', 'Niet in spam belanden', 'Achter elke e-mail zit een echte persoon'],
+    bullets: ['Niet bouncen', 'Niet in spam belanden', 'Dedicated infrastructuur voor outbound leadgeneratie'],
   },
 ]
 
@@ -174,7 +174,7 @@ function PillarSection() {
             fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase',
             color: 'rgba(255,255,255,0.3)', marginBottom: 12,
           }}>
-            De basis van een goede e-mailcampagne
+            De basis van een goede outbound campagne
           </p>
           <h2 style={{
             fontSize: 34, fontWeight: 800, color: 'white',
@@ -183,7 +183,6 @@ function PillarSection() {
             3 onderdelen.
           </h2>
         </div>
-
         {/* Pillar cards */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, alignItems: 'start' }}>
           {PILLARS.map((p, i) => {
@@ -285,6 +284,59 @@ function PillarSection() {
           })}
         </div>
 
+        {/* Channel visuals */}
+        <div style={{ display: 'flex', gap: 16, marginTop: 24 }}>
+          {/* Email */}
+          <div style={{
+            flex: 1, borderRadius: 18, padding: '20px 24px',
+            background: 'rgba(57,106,252,0.06)',
+            border: '1px solid rgba(57,106,252,0.18)',
+            display: 'flex', alignItems: 'center', gap: 18,
+          }}>
+            <div style={{
+              width: 48, height: 48, borderRadius: 13, flexShrink: 0,
+              background: 'rgba(57,106,252,0.12)', border: '1px solid rgba(57,106,252,0.25)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 0 20px rgba(57,106,252,0.15)',
+            }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={BLUE} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="3"/>
+                <polyline points="2,4 12,13 22,4"/>
+              </svg>
+            </div>
+            <div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: 'white', marginBottom: 3 }}>Email outreach</div>
+              <div style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>Geautomatiseerde sequenties via persoonlijke inboxen</div>
+            </div>
+          </div>
+
+          {/* LinkedIn */}
+          <div style={{
+            flex: 1, borderRadius: 18, padding: '20px 24px',
+            background: 'rgba(10,102,194,0.06)',
+            border: '1px solid rgba(10,102,194,0.22)',
+            display: 'flex', alignItems: 'center', gap: 18,
+          }}>
+            <div style={{
+              width: 48, height: 48, borderRadius: 13, flexShrink: 0,
+              background: 'rgba(10,102,194,0.14)', border: '1px solid rgba(10,102,194,0.28)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 0 20px rgba(10,102,194,0.15)',
+            }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a66c2" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="4"/>
+                <line x1="8" y1="11" x2="8" y2="17"/>
+                <line x1="8" y1="8" x2="8" y2="8.5" strokeWidth="2.5" strokeLinecap="round"/>
+                <path d="M12 17v-4a2 2 0 0 1 4 0v4"/>
+                <line x1="12" y1="11" x2="12" y2="17"/>
+              </svg>
+            </div>
+            <div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: 'white', marginBottom: 3 }}>LinkedIn outreach</div>
+              <div style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>Directe connectieverzoeken en berichten via LinkedIn</div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
