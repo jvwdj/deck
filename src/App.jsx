@@ -176,7 +176,7 @@ const T = {
     },
     roi: {
       label: 'The investment',
-      heading: 'What do we typically see come out of this?',
+      heading: 'Our results',
       funnel: [
         { range: '15 - 30', label: 'leads', sub: 'in month 1' },
         { range: '5 - 15', label: 'meetings', sub: 'from those leads' },
