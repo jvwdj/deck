@@ -172,7 +172,7 @@ const T = {
     },
     phases: {
       label: 'The journey',
-      heading: 'How do we make sure you can run this channel yourself?',
+      heading: 'The steps',
     },
     roi: {
       label: 'The investment',
