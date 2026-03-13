@@ -637,8 +637,8 @@ function PhaseSection({ lang }) {
 }
 
 const initParams = new URLSearchParams(window.location.search)
-const initDeal = Number(initParams.get('deal')) || 20000
-const initMarge = Number(initParams.get('marge')) || 50
+const initDeal = initParams.get('deal') ? Number(initParams.get('deal')) : 0
+const initMarge = initParams.get('marge') ? Number(initParams.get('marge')) : 0
 const initOrg = decodeURIComponent(window.location.pathname.replace(/^\//, ''))
 
 function ROISection({ lang }) {
