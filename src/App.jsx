@@ -145,6 +145,8 @@ const T = {
       clientSingular: 'klant',
       clientPlural: 'klanten',
       recover: 'om de investering terug te verdienen',
+      profitPerClientLabel: 'Winst per klant',
+      investmentLabel: 'De investering',
       profitLine: (deal, marge, profit) => `Bij €${deal.toLocaleString('nl-NL')} dealwaarde en ${marge}% marge = €${Math.round(profit).toLocaleString('nl-NL')} winst per klant`,
       orgLabel: 'Organisatie',
       shareCopied: 'Link gekopieerd!',
@@ -188,6 +190,8 @@ const T = {
       clientSingular: 'client',
       clientPlural: 'clients',
       recover: 'to recover the investment',
+      profitPerClientLabel: 'Profit per client',
+      investmentLabel: 'The investment',
       profitLine: (deal, marge, profit) => `At €${deal.toLocaleString('en-GB')} deal value and ${marge}% margin = €${Math.round(profit).toLocaleString('en-GB')} profit per client`,
       orgLabel: 'Organisation',
       shareCopied: 'Link copied!',
@@ -754,9 +758,19 @@ function ROISection({ lang }) {
             </div>
           </div>
 
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 24 }}>
-            <div style={{ background: 'rgba(57,106,252, 0.07)', border: '1px solid rgba(57,106,252, 0.2)', borderRadius: 14, padding: '20px 22px' }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.5)', marginBottom: 14 }}>€8.000</div>
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 24, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div style={{ background: 'rgba(139,92,246,0.07)', border: '1px solid rgba(139,92,246,0.2)', borderRadius: 14, padding: '20px 22px' }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.5)', marginBottom: 14 }}>{t.profitPerClientLabel}</div>
+              <div key={profit} className="scale-in" style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+                <span style={{ fontSize: 44, fontWeight: 800, color: 'white', letterSpacing: -2, lineHeight: 1 }}>
+                  {profit > 0 ? `€${Math.round(profit).toLocaleString(lang === 'nl' ? 'nl-NL' : 'en-GB')}` : '—'}
+                </span>
+              </div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', marginTop: 8 }}>&nbsp;</div>
+            </div>
+            <div style={{ background: 'rgba(57,106,252,0.07)', border: '1px solid rgba(57,106,252,0.2)', borderRadius: 14, padding: '20px 22px' }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.5)', marginBottom: 4 }}>{t.investmentLabel}</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: 'rgba(255,255,255,0.85)', marginBottom: 14, letterSpacing: -0.5 }}>€8.000</div>
               <div key={be8000} className="scale-in" style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
                 <span style={{ fontSize: 44, fontWeight: 800, color: 'white', letterSpacing: -2, lineHeight: 1 }}>{be8000 ?? '?'}</span>
                 <span style={{ fontSize: 16, color: 'rgba(255,255,255,0.45)', fontWeight: 600 }}>
@@ -766,12 +780,6 @@ function ROISection({ lang }) {
               <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', marginTop: 8 }}>{t.recover}</div>
             </div>
           </div>
-
-          {profit > 0 && (
-            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', marginTop: 18, fontStyle: 'italic' }}>
-              {t.profitLine(calcDealwaarde, calcMarge, profit)}
-            </p>
-          )}
         </div>
 
         <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
