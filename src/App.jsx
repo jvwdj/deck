@@ -164,6 +164,54 @@ const T = {
       statement: 'Het kanaal is volledig van jullie.',
     },
     miniInfra: 'Infra',
+    example: {
+      label: 'Voorbeeld',
+      heading: 'Goede vs. slechte campagne',
+      goodBadge: 'GOEDE OUTREACH',
+      badBadge: 'SLECHTE OUTREACH',
+      targetLabel: 'Doelgroep',
+      dmLabel: 'Besluitnemer',
+      painLabel: 'Pijnpunt',
+      emailLabel: 'Email',
+      good: {
+        target: 'B2B SaaS, 10–50 FTE, NL-markt',
+        dm: 'CCO / Head of Sales',
+        pain: 'Afhankelijk van inbound, geen voorspelbare outbound pipeline',
+        subject: 'Onderwerp: vraagje over jullie outbound aanpak',
+        body: [
+          'Beste Martijn,',
+          'Ik zag dat Procurios recent een Sales Manager heeft aangenomen — dat suggereert dat jullie actief willen groeien.',
+          'Wij merken dat veel SaaS-bedrijven in jullie fase nog sterk op inbound en referrals leunen. Dat werkt, maar schiet tekort zodra je een kwartaal minder leads binnenkrijgt.',
+          'Wij bouwen outbound systemen voor B2B SaaS-teams die zelf de controle willen over hun leadstroom — zonder afhankelijk te zijn van een bureau of agency.',
+          'Mag ik je in 20 minuten eens laten zien hoe we dat doen?',
+          '--\nMet vriendelijke groet, kind regards,\n\nJesse van Wendel de Joode\nFounder | Scaleframe.io\n\nM: +31 6 12289277\nT: +31 418 799 776',
+        ],
+        bullets: [
+          'Trigger: concrete aanleiding (LinkedIn-signaal)',
+          'Pijnpunt: specifiek en herkenbaar voor deze persoon',
+          'Aanbod: helder, zonder feature-dump',
+          'CTA: één vraag, lage drempel',
+        ],
+      },
+      bad: {
+        target: '"Bedrijven die willen groeien"',
+        dm: 'info@ / algemeen adres',
+        pain: 'Geen — pitch start vanuit het aanbod',
+        subject: 'Onderwerp: Wij helpen bedrijven groeien!',
+        body: [
+          'Geachte heer/mevrouw,',
+          'Wij zijn Scaleframe, een innovatief bedrijf gespecialiseerd in het optimaliseren van uw salesprocessen door middel van bewezen methodologieën en geavanceerde technologie.',
+          'Onze diensten omvatten:\n• Koude email systemen\n• CRM-integraties\n• Leadgeneratie\n• Salestraining',
+          'Wij hebben al meer dan 35 bedrijven geholpen hun omzet te verhogen. Bent u geïnteresseerd in een vrijblijvend kennismakingsgesprek om te zien hoe wij ook uw organisatie naar een hoger niveau kunnen tillen?',
+          'Met vriendelijke groet,\nJesse van Wendel de Joode\nFounder | Scaleframe.io\n+31 6 12345678 | www.scaleframe.io',
+        ],
+        bullets: [
+          'Geen trigger of aanleiding — waarom nú?',
+          'Bulletlijst = feature-dump, geen pijnpunt',
+          '"Naar een hoger niveau" = betekenisloos',
+        ],
+      },
+    },
   },
   en: {
     pillars: {
@@ -209,6 +257,55 @@ const T = {
       statement: 'The channel is completely yours.',
     },
     miniInfra: 'Infra',
+    example: {
+      label: 'Scripting',
+      heading: 'What makes a cold email good?',
+      goodBadge: 'PERFECT COLD EMAIL',
+      badBadge: 'WORST COLD EMAIL',
+      targetLabel: 'Target audience',
+      dmLabel: 'Decision maker',
+      painLabel: 'Pain point',
+      emailLabel: 'Email',
+      good: {
+        target: 'B2B SaaS, 10–50 FTE, Dutch market',
+        dm: 'CCO / Head of Sales',
+        pain: 'Reliant on inbound, no predictable outbound pipeline',
+        subject: 'Subject: quick question about your outbound approach',
+        body: [
+          'Hi Martijn,',
+          'I noticed Procurios recently hired a Sales Manager — that suggests you\'re actively looking to grow your pipeline.',
+          'A lot of SaaS companies at your stage still rely heavily on inbound and referrals. That works, but falls short the moment you have a slower quarter.',
+          'I build outbound systems for B2B SaaS teams who want control over their own lead flow — without depending on an agency or extra sales hires.',
+          'Is this something you\'re currently working on?',
+          '--\nMet vriendelijke groet, kind regards,\n\nJesse van Wendel de Joode\nFounder | Scaleframe.io\n\nM: +31 6 12289277\nT: +31 418 799 776',
+        ],
+        bullets: [
+          'Trigger: concrete reason to reach out (LinkedIn signal)',
+          'Pain point: specific and recognisable for this person',
+          'Offer: clear, no feature dump',
+          'CTA: one question, low threshold',
+        ],
+      },
+      bad: {
+        target: '"Companies that want to grow"',
+        dm: 'info@ / general address',
+        pain: 'None — pitch starts from the offer',
+        subject: 'Subject: We help companies grow!',
+        body: [
+          'Dear sir/madam,',
+          'We are Scaleframe, an innovative company specialised in optimising your sales processes through proven methodologies and advanced technology.',
+          'Our services include:\n• Cold email systems\n• CRM integrations\n• Lead generation\n• Sales training',
+          'We have already helped more than 35 companies increase their revenue. Would you be interested in a no-obligation introductory call to see how we can take your organisation to the next level?',
+          'Kind regards,\nJesse van der Berg\nFounder & CEO | Scaleframe.io\n+31 6 12345678 | www.scaleframe.io',
+        ],
+        bullets: [
+          'No trigger or reason — why now?',
+          'Bullet list = feature dump, no pain point',
+          '"Next level" = meaningless buzzword',
+          'Giant signature screams "I\'m selling something"',
+        ],
+      },
+    },
   },
 }
 
@@ -304,6 +401,102 @@ function FixedFooter({ lang, setLang }) {
             {l}
           </button>
         ))}
+      </div>
+    </div>
+  )
+}
+
+function ExampleSection({ lang }) {
+  const [ref, inView] = useInView(0.1)
+  const t = T[lang].example
+
+  const EmailCard = ({ isGood }) => {
+    const accent = isGood ? '#22c55e' : '#ef4444'
+    const accentRgb = isGood ? '34,197,94' : '239,68,68'
+    return (
+      <div style={{
+        flex: 1, minWidth: 0,
+        background: 'rgba(255,255,255,0.03)',
+        border: `1px solid rgba(${accentRgb},0.2)`,
+        borderRadius: 20, padding: '22px 24px 20px',
+        display: 'flex', flexDirection: 'column', gap: 0,
+      }}>
+        {/* Badge */}
+        <div style={{
+          display: 'inline-flex', alignItems: 'center',
+          background: `rgba(${accentRgb},0.12)`,
+          border: `1px solid rgba(${accentRgb},0.3)`,
+          borderRadius: 20, padding: '4px 12px', marginBottom: 20,
+          alignSelf: 'flex-start',
+        }}>
+          <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: accent, textTransform: 'uppercase' }}>
+            {isGood ? t.goodBadge : t.badBadge}
+          </span>
+        </div>
+
+        {/* Meta rows */}
+        {[
+          [t.targetLabel, isGood ? t.good.target : t.bad.target],
+          [t.dmLabel, isGood ? t.good.dm : t.bad.dm],
+          [t.painLabel, isGood ? t.good.pain : t.bad.pain],
+        ].map(([label, value]) => (
+          <div key={label} style={{ marginBottom: 8 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: 2 }}>{label}</div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.75)', lineHeight: 1.4 }}>{value}</div>
+          </div>
+        ))}
+
+        {/* Email label */}
+        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginTop: 6, marginBottom: 10 }}>{t.emailLabel}</div>
+
+        {/* Email box */}
+        <div style={{
+          background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)',
+          borderRadius: 12, padding: '16px 18px', marginBottom: 18, flex: 1,
+          boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
+        }}>
+          <div style={{ fontSize: 12.5, fontWeight: 700, color: '#374151', marginBottom: 12, borderBottom: '1px solid #f0f0f0', paddingBottom: 10 }}>
+            {isGood ? t.good.subject : t.bad.subject}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {(isGood ? t.good.body : t.bad.body).map((para, i) => (
+              <div key={i} style={{ fontSize: 12.5, color: '#4b5563', lineHeight: 1.6, whiteSpace: 'pre-line' }}>{para}</div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bullets */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+          {(isGood ? t.good.bullets : t.bad.bullets).map((b, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+              <div style={{ width: 7, height: 7, borderRadius: '50%', background: accent, flexShrink: 0, marginTop: 5, opacity: 0.85 }} />
+              <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', lineHeight: 1.5 }}>{b}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div ref={ref} style={{
+      minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: '60px 40px', boxSizing: 'border-box',
+    }}>
+      <div style={{ maxWidth: 1200, width: '100%' }}>
+        <div className={inView ? 'fade-up' : ''} style={{ '--d': '0ms', opacity: inView ? undefined : 0, marginBottom: 36 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: 12 }}>
+            {t.label}
+          </p>
+          <h2 style={{ fontSize: 44, fontWeight: 800, color: 'white', letterSpacing: -1.2, lineHeight: 1.1, margin: 0 }}>
+            {t.heading}
+          </h2>
+        </div>
+
+        <div className={inView ? 'fade-up' : ''} style={{ '--d': '120ms', opacity: inView ? undefined : 0, display: 'flex', gap: 20, alignItems: 'stretch' }}>
+          <EmailCard isGood={true} />
+          <EmailCard isGood={false} />
+        </div>
       </div>
     </div>
   )
@@ -933,6 +1126,7 @@ export default function App() {
       <FixedFooter lang={lang} setLang={setLang} />
       <div data-scroll style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 64, overflowY: 'auto', zIndex: 1 }}>
         <PillarSection lang={lang} />
+        <ExampleSection lang={lang} />
         <PhaseSection lang={lang} />
         <ResultSection lang={lang} />
         <ROISection lang={lang} />
