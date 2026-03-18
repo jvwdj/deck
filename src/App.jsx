@@ -166,7 +166,7 @@ const T = {
     miniInfra: 'Infra',
     example: {
       label: 'Voorbeeld',
-      heading: 'Goede vs. slechte campagne',
+      heading: 'Goede vs. slechte outreach',
       goodBadge: 'GOEDE OUTREACH',
       badBadge: 'SLECHTE OUTREACH',
       targetLabel: 'Doelgroep',
@@ -184,7 +184,6 @@ const T = {
           'Wij merken dat veel SaaS-bedrijven in jullie fase nog sterk op inbound en referrals leunen. Dat werkt, maar schiet tekort zodra je een kwartaal minder leads binnenkrijgt.',
           'Wij bouwen outbound systemen voor B2B SaaS-teams die zelf de controle willen over hun leadstroom — zonder afhankelijk te zijn van een bureau of agency.',
           'Mag ik je in 20 minuten eens laten zien hoe we dat doen?',
-          '--\nMet vriendelijke groet, kind regards,\n\nJesse van Wendel de Joode\nFounder | Scaleframe.io\n\nM: +31 6 12289277\nT: +31 418 799 776',
         ],
         bullets: [
           'Trigger: concrete aanleiding (LinkedIn-signaal)',
@@ -203,7 +202,6 @@ const T = {
           'Wij zijn Scaleframe, een innovatief bedrijf gespecialiseerd in het optimaliseren van uw salesprocessen door middel van bewezen methodologieën en geavanceerde technologie.',
           'Onze diensten omvatten:\n• Koude email systemen\n• CRM-integraties\n• Leadgeneratie\n• Salestraining',
           'Wij hebben al meer dan 35 bedrijven geholpen hun omzet te verhogen. Bent u geïnteresseerd in een vrijblijvend kennismakingsgesprek om te zien hoe wij ook uw organisatie naar een hoger niveau kunnen tillen?',
-          'Met vriendelijke groet,\nJesse van Wendel de Joode\nFounder | Scaleframe.io\n+31 6 12345678 | www.scaleframe.io',
         ],
         bullets: [
           'Geen trigger of aanleiding — waarom nú?',
@@ -260,8 +258,8 @@ const T = {
     example: {
       label: 'Scripting',
       heading: 'What makes a cold email good?',
-      goodBadge: 'PERFECT COLD EMAIL',
-      badBadge: 'WORST COLD EMAIL',
+      goodBadge: 'EFFECTIVE OUTREACH',
+      badBadge: 'INEFFECTIVE OUTREACH',
       targetLabel: 'Target audience',
       dmLabel: 'Decision maker',
       painLabel: 'Pain point',
@@ -274,10 +272,9 @@ const T = {
         body: [
           'Hi Martijn,',
           'I noticed Procurios recently hired a Sales Manager — that suggests you\'re actively looking to grow your pipeline.',
-          'A lot of SaaS companies at your stage still rely heavily on inbound and referrals. That works, but falls short the moment you have a slower quarter.',
-          'I build outbound systems for B2B SaaS teams who want control over their own lead flow — without depending on an agency or extra sales hires.',
-          'Is this something you\'re currently working on?',
-          '--\nMet vriendelijke groet, kind regards,\n\nJesse van Wendel de Joode\nFounder | Scaleframe.io\n\nM: +31 6 12289277\nT: +31 418 799 776',
+          'A lot of SaaS companies at your stage still rely heavily on inbound and referrals. That works, but it falls short the moment you have a slower quarter.',
+          'We build outbound systems for B2B SaaS teams who want control over their own lead flow — without depending on an agency or extra sales hires.',
+          'Are you interested in a quick introduction so I can show you how we do that?',
         ],
         bullets: [
           'Trigger: concrete reason to reach out (LinkedIn signal)',
@@ -296,7 +293,6 @@ const T = {
           'We are Scaleframe, an innovative company specialised in optimising your sales processes through proven methodologies and advanced technology.',
           'Our services include:\n• Cold email systems\n• CRM integrations\n• Lead generation\n• Sales training',
           'We have already helped more than 35 companies increase their revenue. Would you be interested in a no-obligation introductory call to see how we can take your organisation to the next level?',
-          'Kind regards,\nJesse van der Berg\nFounder & CEO | Scaleframe.io\n+31 6 12345678 | www.scaleframe.io',
         ],
         bullets: [
           'No trigger or reason — why now?',
@@ -408,83 +404,20 @@ function FixedFooter({ lang, setLang }) {
 
 function ExampleSection({ lang }) {
   const [ref, inView] = useInView(0.1)
+  const [showGood, setShowGood] = useState(false)
   const t = T[lang].example
 
-  const EmailCard = ({ isGood }) => {
-    const accent = isGood ? '#22c55e' : '#ef4444'
-    const accentRgb = isGood ? '34,197,94' : '239,68,68'
-    return (
-      <div style={{
-        flex: 1, minWidth: 0,
-        background: 'rgba(255,255,255,0.03)',
-        border: `1px solid rgba(${accentRgb},0.2)`,
-        borderRadius: 20, padding: '22px 24px 20px',
-        display: 'flex', flexDirection: 'column', gap: 0,
-      }}>
-        {/* Badge */}
-        <div style={{
-          display: 'inline-flex', alignItems: 'center',
-          background: `rgba(${accentRgb},0.12)`,
-          border: `1px solid rgba(${accentRgb},0.3)`,
-          borderRadius: 20, padding: '4px 12px', marginBottom: 20,
-          alignSelf: 'flex-start',
-        }}>
-          <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: accent, textTransform: 'uppercase' }}>
-            {isGood ? t.goodBadge : t.badBadge}
-          </span>
-        </div>
-
-        {/* Meta rows */}
-        {[
-          [t.targetLabel, isGood ? t.good.target : t.bad.target],
-          [t.dmLabel, isGood ? t.good.dm : t.bad.dm],
-          [t.painLabel, isGood ? t.good.pain : t.bad.pain],
-        ].map(([label, value]) => (
-          <div key={label} style={{ marginBottom: 8 }}>
-            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: 2 }}>{label}</div>
-            <div style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.75)', lineHeight: 1.4 }}>{value}</div>
-          </div>
-        ))}
-
-        {/* Email label */}
-        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginTop: 6, marginBottom: 10 }}>{t.emailLabel}</div>
-
-        {/* Email box */}
-        <div style={{
-          background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)',
-          borderRadius: 12, padding: '16px 18px', marginBottom: 18, flex: 1,
-          boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
-        }}>
-          <div style={{ fontSize: 12.5, fontWeight: 700, color: '#374151', marginBottom: 12, borderBottom: '1px solid #f0f0f0', paddingBottom: 10 }}>
-            {isGood ? t.good.subject : t.bad.subject}
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {(isGood ? t.good.body : t.bad.body).map((para, i) => (
-              <div key={i} style={{ fontSize: 12.5, color: '#4b5563', lineHeight: 1.6, whiteSpace: 'pre-line' }}>{para}</div>
-            ))}
-          </div>
-        </div>
-
-        {/* Bullets */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
-          {(isGood ? t.good.bullets : t.bad.bullets).map((b, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-              <div style={{ width: 7, height: 7, borderRadius: '50%', background: accent, flexShrink: 0, marginTop: 5, opacity: 0.85 }} />
-              <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', lineHeight: 1.5 }}>{b}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  }
+  const isGood = showGood
+  const accent = isGood ? '#22c55e' : '#ef4444'
+  const accentRgb = isGood ? '34,197,94' : '239,68,68'
 
   return (
     <div ref={ref} style={{
       minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: '60px 40px', boxSizing: 'border-box',
     }}>
-      <div style={{ maxWidth: 1200, width: '100%' }}>
-        <div className={inView ? 'fade-up' : ''} style={{ '--d': '0ms', opacity: inView ? undefined : 0, marginBottom: 36 }}>
+      <div style={{ maxWidth: 1040, width: '100%' }}>
+        <div className={inView ? 'fade-up' : ''} style={{ '--d': '0ms', opacity: inView ? undefined : 0, marginBottom: 28 }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: 12 }}>
             {t.label}
           </p>
@@ -493,9 +426,83 @@ function ExampleSection({ lang }) {
           </h2>
         </div>
 
-        <div className={inView ? 'fade-up' : ''} style={{ '--d': '120ms', opacity: inView ? undefined : 0, display: 'flex', gap: 20, alignItems: 'stretch' }}>
-          <EmailCard isGood={true} />
-          <EmailCard isGood={false} />
+        {/* Toggle */}
+        <div className={inView ? 'fade-up' : ''} style={{ '--d': '80ms', opacity: inView ? undefined : 0, marginBottom: 24 }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: 0,
+            background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: 40, padding: 4,
+          }}>
+            {[false, true].map((val) => {
+              const active = showGood === val
+              const col = val ? '#22c55e' : '#ef4444'
+              const colRgb = val ? '34,197,94' : '239,68,68'
+              return (
+                <button key={String(val)} onClick={() => setShowGood(val)} style={{
+                  padding: '7px 20px', borderRadius: 36, border: 'none', cursor: 'pointer',
+                  fontSize: 11, fontWeight: 800, letterSpacing: 1.5, textTransform: 'uppercase',
+                  background: active ? `rgba(${colRgb},0.15)` : 'transparent',
+                  color: active ? col : 'rgba(255,255,255,0.35)',
+                  boxShadow: active ? `0 0 0 1px rgba(${colRgb},0.4)` : 'none',
+                  transition: 'all 0.2s ease',
+                }}>
+                  {val ? t.goodBadge : t.badBadge}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Card */}
+        <div className={inView ? 'fade-up' : ''} key={String(showGood)} style={{
+          '--d': '140ms', opacity: inView ? undefined : 0,
+          background: 'rgba(255,255,255,0.03)',
+          border: `1px solid rgba(${accentRgb},0.2)`,
+          borderRadius: 20, padding: '22px 24px 20px',
+          display: 'flex', flexDirection: 'column',
+          animation: 'fadeUp 0.25s ease both',
+        }}>
+          {/* Meta rows */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px 24px', marginBottom: 16 }}>
+            {[
+              [t.targetLabel, isGood ? t.good.target : t.bad.target],
+              [t.dmLabel, isGood ? t.good.dm : t.bad.dm],
+              [t.painLabel, isGood ? t.good.pain : t.bad.pain],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: 2 }}>{label}</div>
+                <div style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.75)', lineHeight: 1.4 }}>{value}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Email label */}
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginTop: 4, marginBottom: 10 }}>{t.emailLabel}</div>
+
+          {/* Email box */}
+          <div style={{
+            background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: 12, padding: '16px 18px', marginBottom: 18,
+          }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.95)', marginBottom: 12, borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: 10 }}>
+              {isGood ? t.good.subject : t.bad.subject}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {(isGood ? t.good.body : t.bad.body).map((para, i) => (
+                <div key={i} style={{ fontSize: 13, color: 'rgba(255,255,255,0.82)', lineHeight: 1.65, whiteSpace: 'pre-line' }}>{para}</div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bullets */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+            {(isGood ? t.good.bullets : t.bad.bullets).map((b, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                <div style={{ width: 7, height: 7, borderRadius: '50%', background: accent, flexShrink: 0, marginTop: 5, opacity: 0.85 }} />
+                <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', lineHeight: 1.5 }}>{b}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
