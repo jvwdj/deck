@@ -129,7 +129,7 @@ const T = {
     },
     phases: {
       label: 'Het traject',
-      heading: 'Hoe zorgen we er voor dat jullie dit kanaal zelf kunnen runnen?',
+      heading: 'Hoe zorgen wij voor resultaten én onafhankelijkheid?',
     },
     roi: {
       label: 'De investering',
@@ -220,7 +220,7 @@ const T = {
     },
     phases: {
       label: 'The journey',
-      heading: 'The steps',
+      heading: 'How do we deliver results and independence?',
     },
     roi: {
       label: 'The investment',
