@@ -849,6 +849,7 @@ function ROISection({ lang }) {
   const [calcMarge, setCalcMarge] = useState(initMarge)
   const [orgNaam, setOrgNaam] = useState(initOrg)
   const [copied, setCopied] = useState(false)
+  const [investmentDimmed, setInvestmentDimmed] = useState(true)
   const t = T[lang].roi
 
   const copyLink = async () => {
@@ -970,7 +971,15 @@ function ROISection({ lang }) {
             </div>
             <div style={{ background: 'rgba(57,106,252,0.07)', border: '1px solid rgba(57,106,252,0.2)', borderRadius: 14, padding: '20px 22px' }}>
               <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.5)', marginBottom: 4 }}>{t.investmentLabel}</div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: 'rgba(255,255,255,0.85)', marginBottom: 14, letterSpacing: -0.5 }}>€8.000</div>
+              <div
+                onClick={() => setInvestmentDimmed(d => !d)}
+                style={{
+                  fontSize: 20, fontWeight: 800, letterSpacing: -0.5, marginBottom: 14,
+                  color: 'rgba(255,255,255,0.85)',
+                  filter: investmentDimmed ? 'blur(6px)' : 'blur(0px)',
+                  cursor: 'pointer', transition: 'filter 0.3s ease', userSelect: 'none',
+                }}
+              >€8.000</div>
               <div key={be8000} className="scale-in" style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
                 <span style={{ fontSize: 44, fontWeight: 800, color: 'white', letterSpacing: -2, lineHeight: 1 }}>{be8000 ?? '?'}</span>
                 <span style={{ fontSize: 16, color: 'rgba(255,255,255,0.45)', fontWeight: 600 }}>
